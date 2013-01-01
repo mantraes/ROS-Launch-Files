@@ -26,14 +26,12 @@
   
   <arg name="visual_odometry"         default="true"/>          <!-- Generate visual odometry -->
   <arg name="odom_topic"              default="/odom"/>         <!-- Odometry topic used if visual_odometry is false -->
-   
   <arg name="namespace"               default="rtabmap"/>
-  <arg name="wait_for_transform"      default="0.1"/>
-  
+  <arg name="wait_for_transform"      		default="0.1"/>
 
   <!-- Odometry parameters: -->
   <arg name="strategy"            default="0" />       <!-- Strategy: 0=BOW (bag-of-words) 1=Optical Flow -->
-  <arg name="feature"             default="4" />       <!-- Feature type: 0=SURF 1=SIFT 2=ORB 3=FAST/FREAK 4=FAST/BRIEF 5=GFTT/FREAK 6=GFTT/BRIEF 7=BRISK -->
+  <arg name="feature"             default="2" />       <!-- Feature type: 0=SURF 1=SIFT 2=ORB 3=FAST/FREAK 4=FAST/BRIEF 5=GFTT/FREAK 6=GFTT/BRIEF 7=BRISK -->
   <arg name="estimation"          default="1" />       <!-- Motion estimation approach: 0:3D->3D, 1:3D->2D (PnP) -->
   <arg name="nn"                  default="3" />       <!-- Nearest neighbor strategy : 0=Linear, 1=FLANN_KDTREE (SIFT, SURF), 2=FLANN_LSH, 3=BRUTEFORCE (ORB/FREAK/BRIEF/BRISK) -->
   <arg name="max_depth"           default="0" />       <!-- Maximum features depth (m) -->
@@ -43,7 +41,14 @@
   <arg name="variance_inliers"    default="true"/>    <!-- Variance from inverse of inliers count -->  
 
 
-<!--  <include file="/home/ubuntu/code/ROS-Launch-Files/sensor_transforms.launch"/> -->
+  <!-- Added for mapping --> 
+  <arg name="cloud_max_depth"         		default="8.0" /> <!-- maximum depth of cloud to build map from -->
+  <arg name="cloud_floor_culling_height"        default="0.0" /> <!-- filter the floor at the specificed height -->
+  <arg name="grid_eroded"         		default="true" /> <!-- filter obstacle cells surrounded by empty space -->
+  <arg name="grid_unknown_space_filled"         default="false" /> <!-- fill empty space on lidar map -->
+  <arg name="proj_max_ground_angle"         	default="60.0" /> <!-- Maximum angle (degrees) between point's normal to ground's normal to label it as ground. Points with higher angle difference are considered as obstacles -->
+  <arg name="proj_min_cluster_size"         	default="50" /> <!-- Minimum cluster size to project the points. The distance between clusters is defined by 2*grid_cell_size. -->
+  <arg name="proj_max_height"         		default="1.2" /> <!-- Maximum height of points used for projection. -->
      
 
   <!-- Nodes -->
@@ -93,7 +98,7 @@
       <remap unless="$(arg visual_odometry)" from="odom"  to="$(arg odom_topic)"/>
       
       <remap from="odom"  to="/odometry/filtered"/>
-      <param name="RGBD/PoseScanMatching"     type="string" value="false"/>
+      <param name="RGBD/PoseScanMatching"     type="string" value="true"/>
 
       <param name="Rtabmap/TimeThr"           type="string" value="$(arg time_threshold)"/>
       <param name="RGBD/OptimizeFromGraphEnd" type="string" value="$(arg optimize_from_last_node)"/>

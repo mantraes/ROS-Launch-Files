@@ -8,7 +8,7 @@
     <param name="resolution"            value="2" />
     <param name="quality"               value="2" />
     <param name="sensing_mode"          value="0" />
-    <param name="frame_rate"            value="25" />
+    <param name="frame_rate"            value="60" />
   	
     <param name="left_topic"            value="rgb/image_raw" />
     <param name="second_topic"          value="depth/image_raw" />
