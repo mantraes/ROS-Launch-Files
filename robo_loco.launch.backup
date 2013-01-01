@@ -83,7 +83,7 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
                                      false, false, false,
                                      true,  true,  false,
                                      false, false, true,
-                                     false, false, false]</rosparam>
+                                     true,  true,  false]</rosparam>
 
 
 
@@ -112,8 +112,8 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
            that the relative parameter doesn't cause the measurement to be converted to a velocity before integrating it. If
            you simply want your measurements to start at 0 for a given sensor, set this to true. -->
       <param name="odom0_relative" value="true"/>
-      <param name="odom1_relative" value="false"/>
-      <param name="imu0_relative" value="false"/>
+      <param name="odom1_relative" value="true"/>
+      <param name="imu0_relative" value="true"/>
 
       <!-- If we're including accelerations in our state estimate, then we'll probably want to remove any acceleration that
            is due to gravity for each IMU. If you don't want to, then set this to false. Defaults to false if unspecified. -->
