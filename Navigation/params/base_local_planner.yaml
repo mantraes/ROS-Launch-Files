@@ -2,27 +2,27 @@ DWAPlannerROS:
 #
 # Robot Configuration Parameters
 #
-  acc_lim_x: 1.0 # The x acceleration limit of the robot in meters/sec^2
+  acc_lim_x: 0.5 # The x acceleration limit of the robot in meters/sec^2
   acc_lim_y: 0 # The y acceleration limit of the robot in meters/sec^2
-  acc_lim_th: 5.0 # The rotational acceleration limit of the robot in radians/sec^2
+  acc_lim_th: 1.5 # The rotational acceleration limit of the robot in radians/sec^2
 
-  max_trans_vel: 0.5 # The absolute value of the maximum translational velocity for the robot in m/s
+  max_trans_vel: 0.25 # The absolute value of the maximum translational velocity for the robot in m/s
   min_trans_vel: 0.0 # The absolute value of the minimum translational velocity for the robot in m/s
 
-  max_vel_x: 0.5 # The maximum x velocity for the robot in m/s.
-  min_vel_x: -0.5 # The minimum x velocity for the robot in m/s, negative for backwards motion.
+  max_vel_x: 0.25 # The maximum x velocity for the robot in m/s.
+  min_vel_x: -0.25 # The minimum x velocity for the robot in m/s, negative for backwards motion.
 
   max_vel_y: 0.0 # The maximum y velocity for the robot in m/s
   min_vel_y: 0.0 # The minimum y velocity for the robot in m/s
 
-  max_rot_vel: 1.0 # The absolute value of the maximum rotational velocity for the robot in rad/s
-  min_rot_vel: 0.0 # The absolute value of the minimum rotational velocity for the robot in rad/s
+  max_rot_vel: 2.0 # The absolute value of the maximum rotational velocity for the robot in rad/s
+  min_rot_vel: 0.5 # The absolute value of the minimum rotational velocity for the robot in rad/s
   
 # WARNING:
 # These parameters may only be for TrajectoryPlannerROS... they may not work for DWAPlannerROS..
-  max_vel_theta: 1.0 # The maximum rotational velocity allowed for the base in radians/sec
-  min_vel_theta: -1.0 # The minimum rotational velocity allowed for the base in radians/sec
-  min_in_place_vel_theta: 0.4 # The minimum rotational velocity allowed for the base while performing in-place rotations in radians/sec
+  max_vel_theta: 2.0 # The maximum rotational velocity allowed for the base in radians/sec
+  min_vel_theta: -2.0 # The minimum rotational velocity allowed for the base in radians/sec
+  min_in_place_vel_theta: 0.6 # The minimum rotational velocity allowed for the base while performing in-place rotations in radians/sec
   holonomic_robot: false # Determines whether velocity commands are generated for a holonomic or non-holonomic robot.
   
 
@@ -39,9 +39,9 @@ DWAPlannerROS:
   sim_time: 1.7 # The amount of time to forward-simulate trajectories in seconds
   sim_granularity: 0.025 # The step size, in meters, to take between points on a given trajectory
 
-  vx_samples: 30 # The number of samples to use when exploring the x velocity space
+  vx_samples: 12 # The number of samples to use when exploring the x velocity space
   vy_samples: 0 # The number of samples to use when exploring the y velocity space
-  vtheta_samples: 30 # The number of samples to use when exploring the theta velocity space
+  vtheta_samples: 24 # The number of samples to use when exploring the theta velocity space
 
   penalize_negative_x: false # Whether to penalize trajectories that have negative x velocities.
 
