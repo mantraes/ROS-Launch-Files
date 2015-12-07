@@ -1,0 +1,87 @@
+#!/bin/bash
+source ~/.bashrc
+source ~/catkin_ws/devel/setup.bash
+
+while true; do
+	clear
+	printf "\nEnter Command:\n"
+	printf "1: Start RPLIDAR\n"
+	printf "2: Start GPS\n"
+	printf "3: Start ZED\n"
+	printf "4: Start IMU\n"
+	printf "0: Start All\n"
+	declare -i incommand
+	read incommand
+
+	#
+	# RPLIDAR
+	#
+	if [ $incommand -eq 1 ]
+	then
+	printf "\nStarting RPLIDAR...\n"
+
+	if [ ! -r /dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0 ]
+	then
+		printf "\nRoot password required for USB serial data access\n"
+	fi
+	printf "\nrplidar serial is readable\n"
+	printf "\nStarting rplidar ROS node...\n"
+	roslaunch rplidar_ros rplidar.launch & > /dev/null 2>&1
+
+	sleep 2
+
+	#
+	# Swiftnav Piksi
+	#
+	elif [ $incommand -eq 2 ]
+	then
+	printf "\nStarting GPS...\n"
+
+	if [ ! -r /dev/serial/by-id/usb-FTDI_Single_RS232-HS-if00-port0 ]
+	then
+		printf "\nRoot password required for USB serial data access\n"
+		sudo chmod 777 /dev/serial/by-id/usb-FTDI_Single_RS232-HS-if00-port0
+	fi
+	printf "\nStarting GPS ROS node...\n"
+	roslaunch swiftnav_piksi swiftnav_piksi.launch & > /dev/null 2>&1
+
+	#
+	# ZED camera
+	#
+	elif [ $incommand -eq 3 ]
+	then
+	printf "\nStarting ZED...\n"
+	roslaunch zed_wrapper zed_depth.launch & > /dev/null 2>&1
+	sleep 5
+
+	#
+	# UM7
+	#
+	elif [ $incommand -eq 4 ]
+	then
+	printf "\nStarting UM7 IMU...\n"
+
+	if [ ! -r /dev/serial/by-id/usb-FTDI_Single_RS232-HS-if00-port0 ]
+	then
+		printf "\nRoot password required for USB serial data access\n"
+		sudo chmod 777 /dev/serial/by-id/usb-FTDI_Single_RS232-HS-if00-port0
+	fi
+	printf "\nStarting UM7 IMU ROS node...\n"
+	roslaunch um7 um7.launch & > /dev/null 2>&1
+
+	#
+	# everything
+	#
+	elif [ $incommand -eq 0 ]
+	then
+	printf "\nStarting All Sensors...\n"
+	roslaunch rplidar_ros rplidar.launch & > /dev/null 2>&1
+	sleep 2
+	roslaunch swiftnav_piksi swiftnav_piksi.launch & > /dev/null 2>&1
+	roslaunch zed_wrapper zed_depth.launch & > /dev/null 2>&1
+	sleep 5
+	else
+		printf "whatever\n"
+	fi
+
+done

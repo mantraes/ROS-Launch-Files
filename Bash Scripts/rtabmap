@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source ~./bashrc
+
+unset GTK_IM_MODULE
+printf "\nStarting RTABMAP...\n"
+
+roslaunch rtabmap_ros rgbd_mapping.launch
