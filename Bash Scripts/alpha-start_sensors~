@@ -29,7 +29,7 @@ while true; do
 	printf "\nStarting ZED...\n"
 	roslaunch zed_wrapper zed_depth.launch & > /dev/null 2>&1
 	sleep 8
-	$flag = 1
+	$flag = 1;
 	
 	else
 		printf "whatever\n"

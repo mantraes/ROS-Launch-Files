@@ -73,8 +73,14 @@
       <!-- Each sensor reading updates some or all of the filter's state. These options give you greater control over
            which values from each measurement are fed to the filter. For example, if you have an odometry message as input,
            but only want to use its Z position value, then set the entire vector to false, except for the third entry.
-           The order of the values is x, y, z, roll, pitch, yaw, vx, vy, vz, vroll, vpitch, vyaw, ax, ay, az. Note that not some
-           message types lack certain variables. For example, a TwistWithCovarianceStamped message has no pose information, so
+           The order of the values is
+		 x,	y,	z, 
+		roll,	pitch,	yaw, 
+		vx,	vy,	vz, 
+		vroll,	vpitch, vyaw, 
+		ax, 	ay, 	az 
+
+	   Note that not some message types lack certain variables. For example, a TwistWithCovarianceStamped message has no pose information, so
            the first six values would be meaningless in that case. Each vector defaults to all false if unspecified, effectively
            making this parameter required for each sensor. -->
       <rosparam param="odom0_config">[false, false, false,
@@ -101,11 +107,11 @@
                                        true,  true,  true,
                                        false, false, false]</rosparam>
 -->
-      <rosparam param="imu0_config">[true,  true,  true,
+      <rosparam param="imu0_config">[false,  false,  false,
                                      true,  true,  true,
                                      true,  true,  true,
                                      true,  true,  true,
-                                     true,  true,  true]</rosparam>
+                                     false,  false,  false]</rosparam>
 
       <!-- The best practice for including new sensors in robot_localization's state estimation nodes is to pass in velocity
            measurements and let the nodes integrate them. However, this isn't always feasible, and so the state estimation
@@ -123,7 +129,7 @@
            integration of velocities leads to slowly increasing error in the absolute (pose) variable. For position variables,
            this is acceptable. For orientation variables, it can lead to trouble. Users should make sure that all orientation
            variables have at least one source of absolute measurement. -->
-      <param name="odom0_differential" value="true"/>
+      <param name="odom0_differential" value="false"/>
 <!--      <param name="odom1_differential" value="false"/>
       <param name="pose0_differential" value="true"/>
 -->   <param name="imu0_differential" value="false"/>
@@ -132,7 +138,7 @@
            future measurements. While you can achieve the same effect with the differential paremeter, the key difference is
            that the relative parameter doesn't cause the measurement to be converted to a velocity before integrating it. If
            you simply want your measurements to start at 0 for a given sensor, set this to true. -->
-      <param name="odom0_relative" value="false"/>
+      <param name="odom0_relative" value="true"/>
 <!--      <param name="odom1_relative" value="true"/>
       <param name="pose0_relative" value="false"/>
 -->     <param name="imu0_relative" value="true"/>
