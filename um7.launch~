@@ -6,7 +6,7 @@
     <param name="baud"            value="115200" />
     <param name="frame_id"        value="imu_link" />
     <param name="mag_updates"     value="false" />
-    <param name="quat_mode"       value="false" />
+    <param name="quat_mode"       value="true" />
     <param name="zero_gyros"      value="true" />
 
   </node>
