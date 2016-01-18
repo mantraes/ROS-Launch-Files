@@ -1,8 +1,13 @@
 #!/bin/bash
 
-source ~./bashrc
+source ~/.bashrc
+source ~/catkin_ws/devel/setup.bash
 
 unset GTK_IM_MODULE
 printf "\nStarting RTABMAP...\n"
+
+# xterm -geometry 150x12 -e roslaunch rtabmap_ros rgbd_mapping.launch &
+
+
 
 roslaunch rtabmap_ros rgbd_mapping.launch

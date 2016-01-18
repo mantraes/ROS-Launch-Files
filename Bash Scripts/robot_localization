@@ -2,7 +2,6 @@
 
 source ~/.bashrc
 
-
 printf "\nStarting robot_localization...\n"
 
-roslaunch robot_localization robo_loco.launch
+xterm -e roslaunch robot_localization robo_loco.launch &

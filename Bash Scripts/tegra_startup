@@ -1,0 +1,9 @@
+#!/bin/bash
+source ~/.bashrc
+source ~/catkin_ws/devel/setup.bash
+
+xterm -e roscore &
+sleep 5
+xterm -e roslaunch zed_wrapper zed_depth.launch &
+
+

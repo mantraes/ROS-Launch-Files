@@ -25,7 +25,7 @@
   <arg name="compressed"              default="false"/>
   <arg name="convert_depth_to_mm"     default="true"/>
    
-  <arg name="subscribe_scan"          default="false"/>         <!-- Assuming 2D scan if set, rtabmap will do 3DoF mapping instead of 6DoF -->
+  <arg name="subscribe_scan"          default="true"/>         <!-- Assuming 2D scan if set, rtabmap will do 3DoF mapping instead of 6DoF -->
   <arg name="scan_topic"              default="/scan"/>
   
   <arg name="visual_odometry"         default="true"/>          <!-- Generate visual odometry -->
@@ -48,34 +48,11 @@
 
 
   <!-- Other params specific to SLAMbot -->
-  	<param name="ORB/Gpu"	type="string" value="true" />	<!-- Use GPU version of ORB -->
+  	<param name="ORB/Gpu"	type="bool" value="true" />	<!-- Use GPU version of ORB -->
+        <param name="publish_tf" type="bool" value="false"/>	<!-- Dont publish a tf, robot_localization will do that -->
+<!--     <remap from="odom" to="/odometry/filtered" /> -->
 	
-	<!-- Sensor Transforms -->
-	<!--static_transform_publisher x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
-	<!-- yaw is rotation about Z, pitch is rotation about Y, and roll is rotation about X -->
-	
-	<!-- base_link to camera_link [rgb and depth] (translate and rotate)-->
-	<node pkg="tf" type="static_transform_publisher" name="base_link_to_camera_link_rgb"   args="0 0 0 -1.5707963267948966 0 -1.5707963267948966 base_link zed_rgb_optical_frame 100" />
-	<node pkg="tf" type="static_transform_publisher" name="camera_link_rgb_to_camera_link_depth" args="0 0 0 0 0 0 zed_rgb_optical_frame zed_depth_optical_frame 100" />
 
-	<!-- base_link to gps_link (translate to same x y z as camera_link)-->
-<!--	<node pkg="tf" type="static_transform_publisher" name="base_link_to_gps_link" args="-0.3 0 1 0 0 0 base_link gps_link 100" />
--->
-	<!-- base_link to imu_link (translate) -->
-	<node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_link" args="0 0 0 0 0 0 base_link imu_link 100" />
-
-	<!-- base_link to lidar_link (roughly same transltion as imu_link) -->
-<!--	<node pkg="tf" type="static_transform_publisher" name="camera_link_to_lidar_link" args="0.7366 -0.0762 0.4 0 0 0 base_link lidar_link 100" /> 
--->
-	<node pkg="tf" type="static_transform_publisher" name="odom_to_base_link" args="0 0 0 0 0 0 odom base_link 100" />
-
-
-
-
-
-
-
-        
   <!-- Nodes -->
   <group ns="$(arg namespace)">
   
@@ -85,16 +62,13 @@
 
     <!-- Odometry -->
 
-	<remap from="odom" to="/odometry/filtered" />
-<!--	<param name="publish_tf" type="bool" value="false"/> -->
-
     <node if="$(arg visual_odometry)" pkg="rtabmap_ros" type="rgbd_odometry" name="rgbd_odometry" output="screen" launch-prefix="$(arg launch_prefix)">
       <remap from="rgb/image"       to="$(arg rgb_topic)"/>
       <remap from="depth/image"     to="$(arg depth_registered_topic)"/>
       <remap from="rgb/camera_info" to="$(arg camera_info_topic)"/>
 	  
-	  <param name="frame_id"                 type="string" value="$(arg frame_id)"/>
-	  <param name="wait_for_transform_duration"       type="double"   value="$(arg wait_for_transform)"/>
+	  <param name="frame_id"                 	type="string" 	value="$(arg frame_id)"/>
+	  <param name="wait_for_transform_duration"	type="double"   value="$(arg wait_for_transform)"/>
 	  
 	  <param name="Odom/Strategy"            type="string" value="$(arg strategy)"/> 
 	  <param name="Odom/FeatureType"         type="string" value="$(arg feature)"/>  
@@ -112,9 +86,9 @@
     <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="$(arg rtabmap_args)" launch-prefix="$(arg launch_prefix)">
       <param name="subscribe_depth"    type="bool"   value="true"/>
       <param name="subscribe_laserScan"     type="bool"   value="$(arg subscribe_scan)"/>
-	  <param name="frame_id"           type="string" value="$(arg frame_id)"/>
-	  <param name="wait_for_transform_duration" type="double"   value="$(arg wait_for_transform)"/>
-	  <param name="database_path"      type="string" value="$(arg database_path)"/>
+      <param name="frame_id"           type="string" value="$(arg frame_id)"/>
+      <param name="wait_for_transform_duration" type="double"   value="$(arg wait_for_transform)"/>
+      <param name="database_path"      type="string" value="$(arg database_path)"/>
 	
       <remap from="rgb/image"       to="$(arg rgb_topic)"/>
       <remap from="depth/image"     to="$(arg depth_registered_topic)"/>
@@ -134,7 +108,7 @@
       <param if="$(arg subscribe_scan)" name="RGBD/OptimizeSlam2D"          type="string" value="true"/>
       <param if="$(arg subscribe_scan)" name="RGBD/LocalLoopDetectionSpace" type="string" value="true"/>
       <param if="$(arg subscribe_scan)" name="LccIcp/Type"                  type="string" value="2"/> 
-	  <param if="$(arg subscribe_scan)" name="LccIcp2/CorrespondenceRatio"  type="string" value="0.25"/>
+      <param if="$(arg subscribe_scan)" name="LccIcp2/CorrespondenceRatio"  type="string" value="0.25"/>
     </node>
   
     <!-- Visualisation RTAB-Map -->
