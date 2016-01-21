@@ -62,16 +62,22 @@
            making this parameter required for each sensor. -->
       <rosparam param="odom0_config">[false, false, false,
                                       false, false, false,
-                                      true,  true, true,
+                                      true,  false, false,
                                       false, false, false,
                                       false, false, false]</rosparam>
 
 
-      <rosparam param="imu0_config">[false, false, false,
+<!--      <rosparam param="imu0_config">[false, false, false,
                                      true,  true,  true,
                                      false, false, false,
                                      true,  true,  true,
                                      true,  true,  true]</rosparam>
+-->
+      <rosparam param="imu0_config">[false, false, false,
+                                     false, false, true,
+                                     false, false, false,
+                                     false, false,  true,
+                                     true,  false,  false]</rosparam>
 
       <!-- The best practice for including new sensors in robot_localization's state estimation nodes is to pass in velocity
            measurements and let the nodes integrate them. However, this isn't always feasible, and so the state estimation
@@ -90,7 +96,7 @@
            this is acceptable. For orientation variables, it can lead to trouble. Users should make sure that all orientation
            variables have at least one source of absolute measurement. -->
       <param name="odom0_differential" value="true"/>
-      <param name="imu0_differential" value="false"/>
+      <param name="imu0_differential" value="true"/>
 
       <!-- When the node starts, if this parameter is true, then the first measurement is treated as a "zero point" for all
            future measurements. While you can achieve the same effect with the differential paremeter, the key difference is
@@ -223,15 +229,15 @@
 
 
       <rosparam param="imu0_config">[false, false, false,
-                                     true,  true,  true,
+                                     false, false, true,
                                      false, false, false,
-                                     true,  true,  true,
-                                     true,  true,  true]</rosparam>
+                                     false, false,  true,
+                                     true,  false,  false]</rosparam>
 
      
       <param name="odom0_differential" value="true"/>
  <!-- <param name="odom1_differential" value="true"/> -->
-      <param name="imu0_differential" value="false"/>
+      <param name="imu0_differential" value="true"/>
 
       <param name="odom0_relative" value="true"/>
 <!-- <param name="odom1_relative" value="true"/> -->
@@ -298,17 +304,4 @@
 
 
     </node>
-
-	<node pkg="tf" type="static_transform_publisher" name="base_link_to_camera_link_rgb"   args="-0.36195 0 0.6604 -1.5707963267948966 0 -1.5707963267948966 base_link zed_rgb_optical_frame 100" >
-	</node>
-
-	<node pkg="tf" type="static_transform_publisher" name="camera_link_rgb_to_camera_link_depth" args="0 0 0 0 0 0 zed_rgb_optical_frame zed_depth_optical_frame 100" >
-	</node>
-
-	<node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_link" args="0.4318 0.1143 0.2413 0 0 0 base_link imu_link 100" >
-	</node>
-
-	<node pkg="tf" type="static_transform_publisher" name="base_link_to_lidar_link" args="0.381 -0.0762 0.2413 0 0 0 base_link lidar_link 100" >
-	</node>
-
 </launch>

@@ -32,7 +32,7 @@
   <arg name="odom_topic"              default="/odom"/>         <!-- Odometry topic used if visual_odometry is false -->
    
   <arg name="namespace"               default="rtabmap"/>
-  <arg name="wait_for_transform"      default="0.1"/>
+  <arg name="wait_for_transform"      default="10"/>
   
 
   <!-- Odometry parameters: -->
@@ -49,8 +49,10 @@
 
   <!-- Other params specific to SLAMbot -->
   	<param name="ORB/Gpu"	type="bool" value="true" />	<!-- Use GPU version of ORB -->
-        <param name="publish_tf" type="bool" value="false"/>	<!-- Dont publish a tf, robot_localization will do that -->
-<!--     <remap from="odom" to="/odometry/filtered" /> -->
+        <param name="publishtTf_" type="bool" value="false"/>	<!-- Dont publish a tf, robot_localization will do that -->
+        <param name="publisht_Tf" type="bool" value="false"/>	<!-- Dont publish a tf, robot_localization will do that -->
+        <param name="publisht_tf" type="bool" value="false"/>	<!-- Dont publish a tf, robot_localization will do that -->
+     
 	
 
   <!-- Nodes -->
@@ -63,10 +65,13 @@
     <!-- Odometry -->
 
     <node if="$(arg visual_odometry)" pkg="rtabmap_ros" type="rgbd_odometry" name="rgbd_odometry" output="screen" launch-prefix="$(arg launch_prefix)">
+
+<!-- <remap from="odom" to="/odometry/filtered" /> -->
+
       <remap from="rgb/image"       to="$(arg rgb_topic)"/>
       <remap from="depth/image"     to="$(arg depth_registered_topic)"/>
       <remap from="rgb/camera_info" to="$(arg camera_info_topic)"/>
-	  
+	  <param name="publish_tf" type="bool" value="false"/>	<!-- Dont publish a tf, robot_localization will do that -->
 	  <param name="frame_id"                 	type="string" 	value="$(arg frame_id)"/>
 	  <param name="wait_for_transform_duration"	type="double"   value="$(arg wait_for_transform)"/>
 	  
@@ -153,5 +158,17 @@
     <param name="decimation" type="double" value="2"/>
     <param name="voxel_size" type="double" value="0.02"/>
   </node>
+
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_camera_link_rgb"   args="-0.36195 0 0.6604 -1.5707963267948966 0 -1.5707963267948966 base_link zed_rgb_optical_frame 100" >
+</node>
+
+<node pkg="tf" type="static_transform_publisher" name="camera_link_rgb_to_camera_link_depth" args="0 0 0 0 0 0 zed_rgb_optical_frame zed_depth_optical_frame 100" >
+</node>
+
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_link" args="0.4318 0.1143 0.2413 0 0 0 base_link imu_link 100" >
+</node>
+
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_lidar_link" args="0.381 -0.0762 0.2413 0 0 0 base_link lidar_link 100" >
+</node>
 
 </launch>

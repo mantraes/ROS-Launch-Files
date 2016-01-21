@@ -1,0 +1,5 @@
+#!/bin/sh
+
+printf "\nStarting ZED...\n"
+	xterm -e roslaunch zed_wrapper zed_depth.launch & 
+	sleep 5
