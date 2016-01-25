@@ -28,7 +28,7 @@ obstacle_layer:
 	point_cloud_sensor: {
 		sensor_frame: base_link,
 		data_type: PointCloud,
-		topic: /rtabmap/voxel_cloud, #probs not right
+		topic: /rtabmap/cloud_map, #probs not right
 		min_obstacle_height: .04, #so it doesn't see the ground as an obs
 		marking: true,
 		clearing: true
