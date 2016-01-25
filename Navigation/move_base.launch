@@ -1,6 +1,6 @@
 <!-- ROS navigation stack move_base -->
     <group ns="planner">
-       <!-- FIXME <remap from="NEEDPOINT CLOUD" to="/planner_cloud"/> FIND POINT CLOUD DATA -->
+       <remap from="cloud_map" to="/planner_cloud"/> 
         <remap from="scan" to="/base_scan"/>
         <remap from="map" to="/map"/>
         <remap from="banana_nav/goal" to="/planner_goal"/>
