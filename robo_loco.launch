@@ -212,7 +212,8 @@ world frame for this node is map. this node publishes the tf map->odom, and an o
       <param name="transform_time_offset" value="0.0"/>
      
       <param name="odom0" value="/rtabmap/odom"/>
-      <param name="odom1" value="/from_navsat_transform_node/odom"/>
+      <param name="odom1" value="/odometry/gps"/>
+      <param name="odom2" value="/gps/rtkfix"/>
 
       <!--  	x 	y 	z
 		roll 	pitch 	yaw
@@ -227,9 +228,16 @@ world frame for this node is map. this node publishes the tf map->odom, and an o
                                       false, false, false]</rosparam>
 
 
-	<!-- GPS odom -->
+	<!-- GPS (navsat transform) odom -->
 	<rosparam param="odom1_config">[true,  true,  false, 
-                             	        false, false, false, 
+                                        false, false, false, 
+                                        false, false, false, 
+                                        false, false, false,
+                                        false, false, false]</rosparam>
+
+	<!-- RTK GPS odom -->
+	<rosparam param="odom2_config">[true,  true,  false, 
+                                        false, false, false, 
                                         false, false, false, 
                                         false, false, false,
                                         false, false, false]</rosparam>
@@ -237,9 +245,11 @@ world frame for this node is map. this node publishes the tf map->odom, and an o
      
       <param name="odom0_differential" value="true"/>
       <param name="odom1_differential" value="false"/>
+      <param name="odom2_differential" value="false"/>
 
       <param name="odom0_relative" value="true"/>
       <param name="odom1_relative" value="true"/>
+      <param name="odom2_relative" value="true"/>
 
       <param name="print_diagnostics" value="true"/>
 
@@ -247,6 +257,7 @@ world frame for this node is map. this node publishes the tf map->odom, and an o
 
       <param name="odom0_queue_size" value="10"/>
       <param name="odom1_queue_size" value="10"/>
+      <param name="odom2_queue_size" value="10"/>
 
       <!-- If your data is subject to outliers, use these threshold settings, expressed as Mahalanobis distances, to control
            how far away from the current vehicle state a sensor measurement is permitted to be. Each defaults to
@@ -256,6 +267,9 @@ world frame for this node is map. this node publishes the tf map->odom, and an o
 
       <param name="odom1_pose_rejection_threshold" value="5"/>
       <param name="odom1_twist_rejection_threshold" value="1"/>
+
+      <param name="odom2_pose_rejection_threshold" value="5"/>
+      <param name="odom2_twist_rejection_threshold" value="1"/>
 
       <param name="debug"           value="false"/>
       <param name="debug_out_file"  value="debug_ekf_localization_map.txt"/>
@@ -312,8 +326,14 @@ world frame for this node is map. this node publishes the tf map->odom, and an o
 	<!-- set to pi/2 if the IMU does not show zero when pointing east -->
       <param name="yaw_offset" value="0"/>
 
+<!-- more params, may not need these.
+      <param name="zero_altitude" value="true"/>
+      <param name="publish_filtered_gps" value="false"/>
+      <param name="broadcast_utm_transform" value="true"/>
+      <param name="use_odometry_yaw" value="false"/>
+-->
       <remap from="/imu/data" to="/imu/data" />
-      <remap from="/gps/fix" to="/gps/rtkfix" />
+      <remap from="/gps/fix" to="/gps/fix" />
       <remap from="/odometry/filtered" to="/ekf_localization_map/odom" />
 
     </node>
