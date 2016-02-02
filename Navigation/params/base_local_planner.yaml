@@ -1,15 +1,30 @@
 TrajectoryPlannerROS:  #save for later  
 
 # Robot Configuration Parameters
-  acc_lim_x: 
-  acc_lim_theta: 
+  acc_lim_x: 0.1 
+  acc_lim_theta: 0.1 
 
-  max_vel_x: 
-  min_vel_x: 
+  max_vel_x: 0.1
+  min_vel_x: 0
 
-  max_vel_theta:
-  min_vel_theta:
-  min_in_place_vel_theta: 
+  max_vel_theta: 0.1
+  min_vel_theta: 0
+  min_in_place_vel_theta: 0 
 
-  holonomic_robot:
+  holonomic_robot: false
  
+  xy_goal_tolerance:  0.1
+  yaw_goal_tolerance: 0.1
+  
+  sim_time: 1.7
+  sim_granularity: 0.025
+  angular_sim_granularity: 0.025
+  vx_samples: 5
+  vtheta_samples: 5
+  vtheta_samples: 25
+  
+  occdist_scale: 0.01
+  heading_lookahead: 0.325
+  dwa: true
+  
+  publish_cost_grid_pc: true
