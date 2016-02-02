@@ -1,0 +1,4 @@
+#!/bin/sh
+
+source ~/catkin_ws/devel/setup.bash
+rosrun vel_cmd_filter vel_cmd_filter_node
