@@ -13,7 +13,7 @@ clear
 # Run jetson at max performance?
 #
 
-read -n1 -r -p -s "Enable maximum performance (Jetson)? [y/n] \n" key
+read -n1 -r -p  "Enable maximum performance (Jetson)? [y/n] \n" key
 
 if [ "$key" = 'y' ]; then
 
@@ -63,7 +63,7 @@ fi
 # Start ZED ?
 #
 
-read -n1 -r -p -s "Start ZED depth sensor? [y/n] \n" key
+read -n1 -r -p "Start ZED depth sensor? [y/n] \n" key
 
 if [ "$key" = 'y' ]; then
 
@@ -78,7 +78,7 @@ fi
 # Start vel_cmd_filter ?
 #
 
-read -n1 -r -p -s "Start Velocity Filter? [y/n] \n" key
+read -n1 -r -p "Start Velocity Filter? [y/n] \n" key
 
 if [ "$key" = 'y' ]; then
 
@@ -93,7 +93,7 @@ fi
 # Start robot_localization?
 #
 
-read -n1 -r -p -s "Start robot_localiztion? [y/n] \n" key
+read -n1 -r -p "Start robot_localiztion? [y/n] \n" key
 
 if [ "$key" = 'y' ]; then
 
@@ -108,7 +108,7 @@ fi
 # Start rtabmap ?
 #
 
-read -n1 -r -p -s "Start RTABMAP? [y/n] \n" key
+read -n1 -r -p "Start RTABMAP? [y/n] \n" key
 
 if [ "$key" = 'y' ]; then
 
