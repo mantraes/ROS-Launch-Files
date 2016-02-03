@@ -62,7 +62,7 @@ fi
 #
 # Start ZED ?
 #
-
+printf "\n"
 read -n1 -r -p "Start ZED depth sensor? [y/n] " key
 
 if [ "$key" = 'y' ]; then
@@ -77,7 +77,7 @@ fi
 #
 # Start vel_cmd_filter ?
 #
-
+printf "\n"
 read -n1 -r -p "Start Velocity Filter? [y/n] " key
 
 if [ "$key" = 'y' ]; then
@@ -92,7 +92,7 @@ fi
 #
 # Start robot_localization?
 #
-
+printf "\n"
 read -n1 -r -p "Start robot_localiztion? [y/n] " key
 
 if [ "$key" = 'y' ]; then
@@ -107,7 +107,7 @@ fi
 #
 # Start rtabmap ?
 #
-
+printf "\n"
 read -n1 -r -p "Start RTABMAP? [y/n] " key
 
 if [ "$key" = 'y' ]; then
