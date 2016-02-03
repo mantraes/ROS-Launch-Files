@@ -13,7 +13,7 @@ clear
 # Run jetson at max performance?
 #
 
-read -n1 -r -p  "Enable maximum performance (Jetson)? [y/n] \n" key
+read -n1 -r -p  "Enable maximum performance (Jetson)? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
@@ -56,44 +56,44 @@ if [ "$key" = 'y' ]; then
     echo "EMC: `cat /sys/kernel/debug/clock/emc/rate`"
 
 else
-    echo "skipping max performance\n"
+    echo "skipping max performance"
 fi
 
 #
 # Start ZED ?
 #
 
-read -n1 -r -p "Start ZED depth sensor? [y/n] \n" key
+read -n1 -r -p "Start ZED depth sensor? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-	xterm -e roslaunch zed_wrapper zed_depth.launch & 
+	xterm -e source ~/catkin_ws/devel/setup.bash; roslaunch zed_wrapper zed_depth.launch & 
 	sleep 5
 
 else
-    echo "skipping zed depth sensor\n"
+    echo "skipping zed depth sensor"
 fi
 
 #
 # Start vel_cmd_filter ?
 #
 
-read -n1 -r -p "Start Velocity Filter? [y/n] \n" key
+read -n1 -r -p "Start Velocity Filter? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-	xterm -e rosrun vel_cmd_filter vel_cmd_filter_node &
+	xterm -e source ~/catkin_ws/devel/setup.bash; rosrun vel_cmd_filter vel_cmd_filter_node &
 	sleep 1
 
 else
-    echo "skipping velocity filter\n"
+    echo "skipping velocity filter"
 fi
 
 #
 # Start robot_localization?
 #
 
-read -n1 -r -p "Start robot_localiztion? [y/n] \n" key
+read -n1 -r -p "Start robot_localiztion? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
@@ -101,22 +101,22 @@ if [ "$key" = 'y' ]; then
 	sleep 2
 
 else
-    echo "skipping robot_localization\n"
+    echo "skipping robot_localization"
 fi
 
 #
 # Start rtabmap ?
 #
 
-read -n1 -r -p "Start RTABMAP? [y/n] \n" key
+read -n1 -r -p "Start RTABMAP? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-	xterm -e roslaunch rtabmap_ros rgbd_mapping.launch &
+	xterm -e source ~/catkin_ws/devel/setup.bash; roslaunch rtabmap_ros rgbd_mapping.launch &
 	sleep 2
 
 else
-    echo "skipping RTABMAP\n"
+    echo "skipping RTABMAP"
 fi
 
 echo "Done!"
