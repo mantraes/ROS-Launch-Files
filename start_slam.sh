@@ -67,8 +67,8 @@ read -n1 -r -p "Start ZED depth sensor? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-	xterm -e source ~/catkin_ws/devel/setup.bash; roslaunch zed_wrapper zed_depth.launch & 
-	sleep 5
+    xterm -e source ~/catkin_ws/devel/setup.bash; roslaunch zed_wrapper zed_depth.launch & 
+    sleep 5
 
 else
     echo "skipping zed depth sensor"
@@ -82,8 +82,8 @@ read -n1 -r -p "Start Velocity Filter? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-	xterm -e source ~/catkin_ws/devel/setup.bash; rosrun vel_cmd_filter vel_cmd_filter_node &
-	sleep 1
+    xterm -e source ~/catkin_ws/devel/setup.bash; rosrun vel_cmd_filter vel_cmd_filter_node &
+    sleep 1
 
 else
     echo "skipping velocity filter"
@@ -97,8 +97,8 @@ read -n1 -r -p "Start robot_localiztion? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-	xterm -e roslaunch robot_localization robo_loco.launch &
-	sleep 2
+    xterm -e roslaunch robot_localization robo_loco.launch &
+    sleep 2
 
 else
     echo "skipping robot_localization"
@@ -112,8 +112,8 @@ read -n1 -r -p "Start RTABMAP? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-	xterm -e source ~/catkin_ws/devel/setup.bash; roslaunch rtabmap_ros rgbd_mapping.launch &
-	sleep 2
+    xterm -e source ~/catkin_ws/devel/setup.bash; roslaunch rtabmap_ros rgbd_mapping.launch &
+    sleep 2
 
 else
     echo "skipping RTABMAP"
