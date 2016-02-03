@@ -56,7 +56,7 @@ if [ "$key" = 'y' ]; then
     echo "EMC: `cat /sys/kernel/debug/clock/emc/rate`"
 
 else
-    printf "skipping max performance\n"
+    printf "\nskipping max performance...\n"
 fi
 
 #
@@ -71,7 +71,7 @@ if [ "$key" = 'y' ]; then
     sleep 5
 
 else
-    printf "skipping zed depth sensor\n"
+    printf "\nskipping zed depth sensor...\n"
 fi
 
 #
@@ -86,7 +86,7 @@ if [ "$key" = 'y' ]; then
     sleep 1
 
 else
-    printf "skipping velocity filter\n"
+    printf "\nskipping velocity filter...\n"
 fi
 
 #
@@ -101,7 +101,7 @@ if [ "$key" = 'y' ]; then
     sleep 2
 
 else
-    printf "skipping robot_localization\n"
+    printf "\nskipping robot_localization...\n"
 fi
 
 #
@@ -116,7 +116,7 @@ if [ "$key" = 'y' ]; then
     sleep 2
 
 else
-    printf "skipping RTABMAP\n"
+    printf "\nskipping RTABMAP...\n"
 fi
 
-printf "Done!\n"
+printf "\nDone!\n"
