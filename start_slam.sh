@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # uncomment to run rviz on the Nvidia Jetson TX1
-# unset GTK_IM_MODULE
+ unset GTK_IM_MODULE
 
 
 # This must be run with sudo privelidges 
