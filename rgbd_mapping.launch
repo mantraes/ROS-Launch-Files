@@ -13,7 +13,7 @@
   <arg name="time_threshold"          default="0"/>             <!-- (ms) If not 0 ms, memory management is used to keep processing time on this fixed limit. -->
   <arg name="optimize_from_last_node" default="false"/>         <!-- Optimize the map from the last node. Should be true on multi-session mapping and when time threshold is set -->
   <arg name="database_path"           default="~/.ros/rtabmap.db"/>
-  <arg name="rtabmap_args"            default="--delete_db_on_start --udebug"/>              <!-- delete_db_on_start, udebug -->
+  <arg name="rtabmap_args"            default="--delete_db_on_start"/>              <!-- delete_db_on_start, udebug -->
   <arg name="launch_prefix"           default=""/>              <!-- for debugging purpose, it fills launch-prefix tag of the nodes -->
    
   <arg name="rgb_topic"               default="/rgb/image_raw" />
@@ -39,7 +39,7 @@
   <arg name="nn"                  default="3" />       <!-- Nearest neighbor strategy : 0=Linear, 1=FLANN_KDTREE (SIFT, SURF), 2=FLANN_LSH, 3=BRUTEFORCE (ORB/FREAK/BRIEF/BRISK) -->
   <arg name="max_depth"           default="10" />       <!-- Maximum features depth (m) -->
   <arg name="min_inliers"         default="8" />      <!-- Minimum visual correspondences to accept a transformation (m) -->
-  <arg name="inlier_distance"     default="0.05" />     <!-- RANSAC maximum inliers distance (m) -->
+  <arg name="inlier_distance"     default="0.1" />     <!-- RANSAC maximum inliers distance (m) -->
   <arg name="local_map"           default="999" />    <!-- Local map size: number of unique features to keep track -->
   <arg name="variance_inliers"    default="true"/>    <!-- Variance from inverse of inliers count -->  
 
@@ -61,7 +61,7 @@
       <remap from="depth/image"     to="$(arg depth_registered_topic)"/>
       <remap from="rgb/camera_info" to="$(arg camera_info_topic)"/>
 
-      <param name="publish_tf" type="bool" value="false"/>  <!-- Dont publish a tf, robot_localization will do that -->
+      <param name="publish_tf" type="bool" value="false"/>   <!-- Dont publish a tf, robot_localization will do that -->
       <param name="ORB/Gpu"                  type="bool"   value="true" />  <!-- Use GPU version of ORB -->
 
       <param name="frame_id"                  type="string"   value="$(arg frame_id)"/>
@@ -96,6 +96,7 @@
       <remap from="scan"            to="$(arg scan_topic)"/>
       <remap unless="$(arg visual_odometry)" from="odom"  to="$(arg odom_topic)"/>
       
+      <remap from="odom"  to="/odometry/filtered"/>
       <param name="RGBD/PoseScanMatching"     type="string" value="false"/> <!-- TODO: verify this -->
 
       <param name="Rtabmap/TimeThr"           type="string" value="$(arg time_threshold)"/>
@@ -162,3 +163,4 @@
 
 
 </launch>
+
