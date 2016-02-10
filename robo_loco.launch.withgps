@@ -1,7 +1,7 @@
 <launch>
 <!-- 
 ========================================================================
-	EKF_LOCALIZATION_NODE (ODOM)
+  EKF_LOCALIZATION_NODE (ODOM)
 ========================================================================
 This node takes in data from IMU and odometry from RTABMAP (continuous data). world frame for this node is odom.
 this node publishes the tf odom->base_link, and an odom message in the odom world frame.
@@ -55,6 +55,9 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
            e.g., odom0, odom1, twist0, twist1, imu0, imu1, imu2, etc. The value should be the topic name. These
            parameters obviously have no default values, and must be specified. -->
       <param name="odom0" value="/rtabmap/odom"/>
+      <param name="odom1" value="/scanmatch_odom"/>
+      <param name="odom2" value="/odometry/gps"/>
+      <param name="odom3" value="/gps/rtkfix"/>
       <param name="imu0" value="/imu/data"/>
 
       <!-- Each sensor reading updates some or all of the filter's state. These options give you greater control over
@@ -64,24 +67,48 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
            message types lack certain variables. For example, a TwistWithCovarianceStamped message has no pose information, so
            the first six values would be meaningless in that case. Each vector defaults to all false if unspecified, effectively
            making this parameter required for each sensor. -->
+
+                            <!--   x      y        z
+                                   roll   pitch    yaw
+                                   vx     vy      vz
+                                   vroll  vpitch  vyaw
+                                   ax     ay      az
+                            -->
+
       <rosparam param="odom0_config">[true, true, true,
                                       true, true, true,
                                       false, false, false,
                                       false, false, false,
                                       false, false, false]</rosparam>
 
+      <!-- LIDAR Scanmatching from Hector Mapping -->
+      <rosparam param="odom1_config">[true, true, false,
+                                      false, false, false,
+                                      false, false, false,
+                                      false, false, false,
+                                      false, false, false]</rosparam>
+      <!-- GPS (navsat transform) odom -->
+      <rosparam param="odom2_config">[true,  true,  false, 
+                                      false, false, false, 
+                                      false, false, false, 
+                                      false, false, false,
+                                      false, false, false]</rosparam>
 
-<!--      <rosparam param="imu0_config">[false, false, false,
-                                     true,  true,  true,
-                                     false, false, false,
-                                     true,  true,  true,
-                                     true,  true,  true]</rosparam>
--->
+      <!-- RTK GPS odom -->
+      <rosparam param="odom3_config">[true,  true,  false, 
+                                      false, false, false, 
+                                      false, false, false, 
+                                      false, false, false,
+                                      false, false, false]</rosparam>
+
+
       <rosparam param="imu0_config">[false, false, false,
                                      false, false, false,
                                      false, false, false,
                                      true,  true,  true,
                                      true,  true,  true]</rosparam>
+
+
 
       <!-- The best practice for including new sensors in robot_localization's state estimation nodes is to pass in velocity
            measurements and let the nodes integrate them. However, this isn't always feasible, and so the state estimation
@@ -100,6 +127,9 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
            this is acceptable. For orientation variables, it can lead to trouble. Users should make sure that all orientation
            variables have at least one source of absolute measurement. -->
       <param name="odom0_differential" value="false"/>
+      <param name="odom1_differential" value="false"/>
+      <param name="odom2_differential" value="false"/>
+      <param name="odom3_differential" value="false"/>
       <param name="imu0_differential" value="false"/>
 
       <!-- When the node starts, if this parameter is true, then the first measurement is treated as a "zero point" for all
@@ -107,6 +137,9 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
            that the relative parameter doesn't cause the measurement to be converted to a velocity before integrating it. If
            you simply want your measurements to start at 0 for a given sensor, set this to true. -->
       <param name="odom0_relative" value="true"/>
+      <param name="odom1_relative" value="true"/>
+      <param name="odom2_relative" value="true"/>
+      <param name="odom3_relative" value="true"/>
       <param name="imu0_relative" value="true"/>
 
       <!-- If we're including accelerations in our state estimate, then we'll probably want to remove any acceleration that
@@ -126,6 +159,9 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
       <!-- By default, the subscription queue size for each message type is 1. If you wish to increase that so as not
            miss any messages (even if your frequency is set to a relatively small value), increase these. -->
       <param name="odom0_queue_size" value="10"/>
+      <param name="odom1_queue_size" value="10"/>
+      <param name="odom2_queue_size" value="10"/>
+      <param name="odom3_queue_size" value="10"/>
       <param name="imu0_queue_size" value="10"/>
 
       <!-- If your data is subject to outliers, use these threshold settings, expressed as Mahalanobis distances, to control
@@ -133,6 +169,12 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
            numeric_limits<double>::max() if unspecified. -->
       <param name="odom0_pose_rejection_threshold" value="5"/>
       <param name="odom0_twist_rejection_threshold" value="1"/>
+      <param name="odom1_pose_rejection_threshold" value="5"/>
+      <param name="odom1_twist_rejection_threshold" value="1"/>
+      <param name="odom2_pose_rejection_threshold" value="5"/>
+      <param name="odom2_twist_rejection_threshold" value="1"/>
+      <param name="odom3_pose_rejection_threshold" value="5"/>
+      <param name="odom3_twist_rejection_threshold" value="1"/>
       <param name="imu0_pose_rejection_threshold" value="0.3"/>
       <param name="imu0_twist_rejection_threshold" value="0.1"/>
       <param name="imu0_linear_acceleration_rejection_threshold" value="0.1"/>
@@ -188,135 +230,11 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
       -->
 
     </node>
-
-<!-- 
-========================================================================
-	EKF_LOCALIZATION_NODE (MAP)
-========================================================================
-
-This node takes in data from gps odometry (from navsat_transform_node) and odometry from RTABMAP.
-world frame for this node is map. this node publishes the tf map->odom, and an odom message in the map frame.
-
--->
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_map" clear_params="true">
-
-      <param name="frequency" value="30"/>
-      <param name="sensor_timeout" value="0.1"/>
-      <param name="two_d_mode" value="true"/>
-
-      <param name="map_frame" value="map"/>
-      <param name="odom_frame" value="odom"/>
-      <param name="base_link_frame" value="base_link"/>
-      <param name="world_frame" value="map"/>
-
-      <param name="transform_time_offset" value="0.0"/>
-     
-      <param name="odom0" value="/rtabmap/odom"/>
-      <param name="odom1" value="/odometry/gps"/>
-      <param name="odom2" value="/gps/rtkfix"/>
-
-      <!--  	x 	y 	z
-		roll 	pitch 	yaw
-		vx	vy 	vz
-		vroll 	vpitch 	vyaw
-		ax 	ay 	az
-	 -->
-      <rosparam param="odom0_config">[true, true, true,
-                                      true, true, true,
-                                      false, false, false,
-                                      false, false, false,
-                                      false, false, false]</rosparam>
-
-
-	<!-- GPS (navsat transform) odom -->
-	<rosparam param="odom1_config">[true,  true,  false, 
-                                        false, false, false, 
-                                        false, false, false, 
-                                        false, false, false,
-                                        false, false, false]</rosparam>
-
-	<!-- RTK GPS odom -->
-	<rosparam param="odom2_config">[true,  true,  false, 
-                                        false, false, false, 
-                                        false, false, false, 
-                                        false, false, false,
-                                        false, false, false]</rosparam>
-
-     
-      <param name="odom0_differential" value="false"/>
-      <param name="odom1_differential" value="false"/>
-      <param name="odom2_differential" value="false"/>
-
-      <param name="odom0_relative" value="true"/>
-      <param name="odom1_relative" value="true"/>
-      <param name="odom2_relative" value="true"/>
-
-      <param name="print_diagnostics" value="true"/>
-
-      <!-- ======== ADVANCED PARAMETERS ======== -->
-
-      <param name="odom0_queue_size" value="10"/>
-      <param name="odom1_queue_size" value="10"/>
-      <param name="odom2_queue_size" value="10"/>
-
-      <!-- If your data is subject to outliers, use these threshold settings, expressed as Mahalanobis distances, to control
-           how far away from the current vehicle state a sensor measurement is permitted to be. Each defaults to
-           numeric_limits<double>::max() if unspecified. -->
-      <param name="odom0_pose_rejection_threshold" value="5"/>
-      <param name="odom0_twist_rejection_threshold" value="1"/>
-
-      <param name="odom1_pose_rejection_threshold" value="5"/>
-      <param name="odom1_twist_rejection_threshold" value="1"/>
-
-      <param name="odom2_pose_rejection_threshold" value="5"/>
-      <param name="odom2_twist_rejection_threshold" value="1"/>
-
-      <param name="debug"           value="false"/>
-      <param name="debug_out_file"  value="debug_ekf_localization_map.txt"/>
-
-      <rosparam param="process_noise_covariance">[0.05, 0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
-                                                  0,    0.05, 0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
-                                                  0,    0,    0.06, 0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
-                                                  0,    0,    0,    0.03, 0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
-                                                  0,    0,    0,    0,    0.03, 0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
-                                                  0,    0,    0,    0,    0,    0.06, 0,     0,     0,    0,    0,    0,    0,    0,    0,
-                                                  0,    0,    0,    0,    0,    0,    0.025, 0,     0,    0,    0,    0,    0,    0,    0,
-                                                  0,    0,    0,    0,    0,    0,    0,     0.025, 0,    0,    0,    0,    0,    0,    0,
-                                                  0,    0,    0,    0,    0,    0,    0,     0,     0.04, 0,    0,    0,    0,    0,    0,
-                                                  0,    0,    0,    0,    0,    0,    0,     0,     0,    0.01, 0,    0,    0,    0,    0,
-                                                  0,    0,    0,    0,    0,    0,    0,     0,     0,    0,    0.01, 0,    0,    0,    0,
-                                                  0,    0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0.02, 0,    0,    0,
-                                                  0,    0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0.01, 0,    0,
-                                                  0,    0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0.01, 0,
-                                                  0,    0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0.015]</rosparam>
-
-
-           <rosparam param="initial_estimate_covariance">[1e-9, 0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
-                                                          0,    1e-9, 0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
-                                                          0,    0,    1e-9, 0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
-                                                          0,    0,    0,    1e-9, 0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
-                                                          0,    0,    0,    0,    1e-9, 0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
-                                                          0,    0,    0,    0,    0,    1e-9, 0,    0,    0,    0,     0,     0,     0,    0,    0,
-                                                          0,    0,    0,    0,    0,    0,    1e-9, 0,    0,    0,     0,     0,     0,    0,    0,
-                                                          0,    0,    0,    0,    0,    0,    0,    1e-9, 0,    0,     0,     0,     0,    0,    0,
-                                                          0,    0,    0,    0,    0,    0,    0,    0,    1e-9, 0,     0,     0,     0,    0,    0,
-                                                          0,    0,    0,    0,    0,    0,    0,    0,    0,    1e-9,  0,     0,     0,    0,    0,
-                                                          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     1e-9,  0,     0,    0,    0,
-                                                          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     1e-9,  0,    0,    0,
-                                                          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     1e-9, 0,    0,
-                                                          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    1e-9, 0,
-                                                          0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    1e-9]</rosparam>
-
-
-    </node>
-
-
 <!-- 
 ========================================================================
 	NAVSAT_TRANSFORM_NODE
 ========================================================================
 -->
-
 
     <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true">
 

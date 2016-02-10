@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # uncomment to run rviz on the Nvidia Jetson TX1
- unset GTK_IM_MODULE
+# unset GTK_IM_MODULE
 
 
-# This must be run with sudo privelidges 
+
 source ~/catkin_ws/devel/setup.bash
 
 clear
@@ -12,7 +12,7 @@ clear
 #
 # Run jetson at max performance?
 #
-
+# This must be run with sudo privelidges 
 read -n1 -r -p  "Enable maximum performance (Jetson)? [y/n] " key
 
 if [ "$key" = 'y' ]; then
@@ -118,5 +118,6 @@ if [ "$key" = 'y' ]; then
 else
     printf "\nskipping RTABMAP...\n"
 fi
+
 
 printf "\nDone!\n"
