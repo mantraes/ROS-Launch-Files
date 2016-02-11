@@ -1,5 +1,5 @@
 local_costmap:
-   global_frame: /odometry/filtered #I think this is the correct frame, may be /odom
+   global_frame: /odom #I think this is the correct frame, may be /odom
    robot_base_frame: /base_link
    update_frequency: 20
    publish_frequency: 5
