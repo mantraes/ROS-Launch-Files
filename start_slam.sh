@@ -119,9 +119,9 @@ else
     printf "\nskipping RTABMAP...\n"
 fi
 
-<<<<<<< HEAD
+
 #
-# Start rtabmap ?
+# Start move_base ?
 #
 printf "\n"
 read -n1 -r -p "Start Move_Base? [y/n] " key
@@ -134,7 +134,6 @@ if [ "$key" = 'y' ]; then
 else
     printf "\nskipping Move_Base...\n"
 fi
-=======
->>>>>>> d47fb5d5fad667a8720c61b260c4cb8ff905c70e
+
 
 printf "\nDone!\n"
