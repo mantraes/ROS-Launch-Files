@@ -1,4 +1,3 @@
-
 footprint: [[ 0.69, 0.76], [ -0.69, 0.76], [ -0.69, -0.76], [ 0.69, -0.76]]
 footprint_padding: 0.05
 
@@ -7,36 +6,30 @@ plugins:
 - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
 
 inflation_layer:
-	inflation_radius: 1.52 # apparently 2xfootprint
-	transform_tolerance: 2
+ inflation_radius: 1.52 # apparently 2xfootprint
+ transform_tolerance: 2
 
 obstacle_layer:
-	obstacle_range: 6.0 #going to keep the draw range at the max of the lidar 
-	raytrace_range: 6.5 #still not clear what this does
-	allow_unknown: true 
-	track_unknown_space: true 
-	
-	
-	observation_sources: laser_scan_sensor point_cloud_sensor
+ obstacle_range: 6.0 #going to keep the draw range at the max of the lidar 
+ raytrace_range: 6.5 #still not clear what this does
+ allow_unknown: true 
+ track_unknown_space: true 
 
-	laser_scan_sensor: {
-		sensor_frame: laser, 
-		data_type: LaserScan,
-		topic: scan,
-		marking: true, #can place obs on costmap
-		clearing: true #can clear obs from costmap
-	}
+observation_sources: laser_scan_sensor point_cloud_sensor
 
-	point_cloud_sensor: {
-		sensor_frame: base_link,
-		data_type: PointCloud,
-		topic: /rtabmap/cloud_map, #probs not right
-		min_obstacle_height: .04, #so it doesn't see the ground as an obs
-		marking: true,
-		clearing: true
-	}
+ laser_scan_sensor: {
+ 	sensor_frame: laser, 
+ 	data_type: LaserScan,
+ 	topic: scan,
+ 	marking: true, #can place obs on costmap
+ 	clearing: true #can clear obs from costmap
+}
 
-
-		
-		
-
+ point_cloud_sensor: {
+ 	sensor_frame: base_link,
+ 	data_type: PointCloud,
+ 	topic: /rtabmap/cloud_map, #probs not right
+ 	min_obstacle_height: .04, #so it doesn't see the ground as an obs
+ 	marking: true,
+ 	clearing: true
+}

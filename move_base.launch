@@ -1,0 +1,18 @@
+<launch>
+<!-- ROS navigation stack move_base -->
+    <group ns="planner">
+	<!-- TODO: verify these remappings
+        <remap from="cloud_map" to="/planner_cloud"/> 
+        <remap from="scan" to="/base_scan"/>
+        <remap from="map" to="/map"/>
+        <remap from="banana_nav/goal" to="/planner_goal"/>
+        -->
+        <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
+     	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/local_costmap_params.yaml" command="load" />
+    	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/global_costmap_params.yaml" command="load" />
+    	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/base_local_planner_params.yaml" command="load" />
+   	</node>
+   </group>
+</launch>

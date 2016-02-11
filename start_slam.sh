@@ -97,7 +97,7 @@ read -n1 -r -p "Start robot_localiztion? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-    xterm -e roslaunch robot_localization robo_loco.launch &
+
     sleep 2
 
 else
@@ -117,6 +117,21 @@ if [ "$key" = 'y' ]; then
 
 else
     printf "\nskipping RTABMAP...\n"
+fi
+
+#
+# Start rtabmap ?
+#
+printf "\n"
+read -n1 -r -p "Start Move_Base? [y/n] " key
+
+if [ "$key" = 'y' ]; then
+
+    xterm -e roslaunch move_base move_base.launch &
+    sleep 2
+
+else
+    printf "\nskipping Move_Base...\n"
 fi
 
 printf "\nDone!\n"
