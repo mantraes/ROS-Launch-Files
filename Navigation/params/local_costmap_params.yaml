@@ -1,11 +1,11 @@
 local_costmap:
-   global_frame: odom
-   robot_base_frame: base_link
-   update_frequency: 5
+   global_frame: /odom/filtered #I think this is the correct frame, may be /odom
+   robot_base_frame: /base_link
+   update_frequency: 20
    publish_frequency: 5
    static_map: false
    rolling_window: true
-   width: 20.0 #distance that the zed can put out
-   height: 20.0	
+   width: 6.0 #distance that the rplidar can put out
+   height: 6.0	
    resolution: 0.05 #meters/cell
 
