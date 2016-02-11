@@ -18,18 +18,18 @@ obstacle_layer:
 observation_sources: laser_scan_sensor point_cloud_sensor
 
  laser_scan_sensor: {
- 	sensor_frame: laser, 
- 	data_type: LaserScan,
- 	topic: scan,
- 	marking: true, #can place obs on costmap
- 	clearing: true #can clear obs from costmap
+   sensor_frame: laser, 
+   data_type: LaserScan,
+   topic: scan,
+   marking: true, #can place obs on costmap
+   clearing: true #can clear obs from costmap
 }
 
  point_cloud_sensor: {
- 	sensor_frame: base_link,
- 	data_type: PointCloud,
- 	topic: /rtabmap/cloud_map, #probs not right
- 	min_obstacle_height: .04, #so it doesn't see the ground as an obs
- 	marking: true,
- 	clearing: true
+   sensor_frame: base_link,
+   data_type: PointCloud,
+   topic: /rtabmap/cloud_map, #probs not right
+   min_obstacle_height: .04, #so it doesn't see the ground as an obs
+   marking: true,
+   clearing: true
 }
