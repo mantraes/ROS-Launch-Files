@@ -1,16 +1,9 @@
 global_costmap:
- global_frame: /map
- robot_base_frame: /base_link
- 
+ global_frame: map
+ robot_base_frame: base_link
+ update_frequency: 0.5
+ publish_frequency: 0.5
+ static_map: true
 
- update_frequency: 20.0
- publish_frequency: 5.0
- width: 50.0  #50 square meter area
- height: 50.0
- resolution: 0.05 #cells/meter
- origin_x: -25.0  #center the robot in center of costmap
- origin_y: -25.0
- 
- rolling_window: false
- static_map: false #doesn't need a map imported to start with
-
+#updated from rtabmap stereo outdoor navigation tutorial
+#http://wiki.ros.org/rtabmap_ros/Tutorials/StereoOutdoorNavigation
