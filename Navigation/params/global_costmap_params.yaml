@@ -14,7 +14,3 @@ global_costmap:
  rolling_window: false
  static_map: false #doesn't need a map imported to start with
 
-plugins:
-- {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
-- {name: inflater_layer, type: "costmap_2d::InflationLayer"}
-
