@@ -9,16 +9,16 @@
 
 
         <remap from="odom" to="/odometry/filtered" />
-        <remap from="planner_cloud" to="/rtabmap/cloud_map"/> <!-- using the pointcloud map... -->
-        <remap from="map" to="rtabmap/proj_map"/>  <!-- using the LIDAR map... -->
+
+        <remap from="map" to="rtabmap/grid_map"/>  <!-- using the LIDAR map... -->
  	 <!-- <remap from="cmd_vel" to="/j5_cmd"/>  link output to the j5 -->
 
- 	 <!-- <remap from="cmd_vel" to="/j5_cmd"/>  link output to the j5 -->
 
 	
         <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
- 	  <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
 
+ 	  <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+	  
     	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
      	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
     	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/local_costmap_params.yaml" command="load" />
