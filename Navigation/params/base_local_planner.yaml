@@ -1,20 +1,18 @@
-TrajectoryPlannerROS:  #save for later  
-
-# Robot Configuration Parameters
-  acc_lim_x: 5 
-  acc_lim_theta: 5 
+DWAPlannerROS:  #save for later
 
   max_vel_x: 0.2
   min_vel_x: -0.2
-
-  max_vel_theta: 0.5
+  max_rotational_vel: 0.5
   min_vel_theta: -0.5
-  min_in_place_vel_theta: 0 
+  min_in_place_vel_theta: 0.2
+  escape_vel: -0.2
+  acc_lim_x: 5
+  acc_lim_y: 5
+  acc_lim_theta: 5
 
   holonomic_robot: false
-
-  xy_goal_tolerance:  0.2
-  yaw_goal_tolerance: 0.2
+  xy_goal_tolerance:  0.2 # 20cm
+  yaw_goal_tolerance: 0.175 # 10 degrees
 
   sim_time: 1.7
   sim_granularity: 0.025
@@ -23,13 +21,14 @@ TrajectoryPlannerROS:  #save for later
   vtheta_samples: 5
   vtheta_samples: 25
 
-  goal_distance_bias: 0.8
-  path_distance_bias: 0.6
+  pdist_scale: 0.8
+  gdist_scale: 0.6
   occdist_scale: 0.01
-  heading_lookahead: 0.325
+  heading_lookahead: 1.0
+  prune_plan: true
+
   dwa: true
 
-  escape_vel: -0.8
 
   publish_cost_grid_pc: true
   oscillation_reset_dist: 0.05
