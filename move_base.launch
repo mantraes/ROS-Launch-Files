@@ -12,7 +12,7 @@
         <remap from="odom" to="/odometry/filtered" />
         <remap from="planner_cloud" to="/rtabmap/cloud_map"/> <!-- using the pointcloud map... -->
         <remap from="map" to="rtabmap/proj_map"/>  <!-- using the LIDAR map... -->
- 	<remap from="cmd_vel" to="/j5_cmd"/>  <!-- link output to the j5 -->
+ 	 <!-- <remap from="cmd_vel" to="/j5_cmd"/>  link output to the j5 -->
 	
         <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
