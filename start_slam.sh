@@ -97,7 +97,7 @@ read -n1 -r -p "Start robot_localiztion? [y/n] " key
 
 if [ "$key" = 'y' ]; then
 
-
+    xterm -e roslaunch robot_localization robo_loco.launch &
     sleep 2
 
 else
