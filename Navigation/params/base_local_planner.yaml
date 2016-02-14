@@ -7,7 +7,7 @@ DWAPlannerROS:
   acc_lim_th: 3.2 # The rotational acceleration limit of the robot in radians/sec^2
 
   max_trans_vel: 0.55 # The absolute value of the maximum translational velocity for the robot in m/s
-  min_trans_vel:0.1 # The absolute value of the minimum translational velocity for the robot in m/s
+  min_trans_vel: 0.1 # The absolute value of the minimum translational velocity for the robot in m/s
 
   max_vel_x: 0.55 # The maximum x velocity for the robot in m/s.
   min_vel_x: -0.55 # The minimum x velocity for the robot in m/s, negative for backwards motion.
