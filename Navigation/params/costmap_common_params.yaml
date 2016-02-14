@@ -16,7 +16,8 @@ transform_tolerance: 1 # Specifies the delay in transform (tf) data that is tole
 controller_patience: 2.0 # How long the controller will wait in seconds without receiving a valid control before space-clearing operations are performed.
 
 # base global planner
-NavfnROS: allow_unknown: true # Specifies whether or not to allow navfn to create plans that traverse unknown space.
+NavfnROS:
+   allow_unknown: true # Specifies whether or not to allow navfn to create plans that traverse unknown space.
 
 
 
