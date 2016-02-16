@@ -4,8 +4,8 @@
 #
 
 # Sensors
-obstacle_range: 10 # The maximum range in meters at which to insert obstacles into the costmap using sensor data.
-raytrace_range: 10 # The maximum range in meters at which to raytrace out obstacles from the map using sensor data.
+obstacle_range: 5.5 # The maximum range in meters at which to insert obstacles into the costmap using sensor data.
+raytrace_range: 6.0 # The maximum range in meters at which to raytrace out obstacles from the map using sensor data.
 inf_is_valid: true  # Allows for Inf values in "LaserScan" observation messages. The Inf values are converted to the laser maximun range.
 
 # Robot Specific
@@ -15,11 +15,16 @@ inflation_radius: 0.55
 transform_tolerance: 1 # Specifies the delay in transform (tf) data that is tolerable in seconds.
 controller_patience: 2.0 # How long the controller will wait in seconds without receiving a valid control before space-clearing operations are performed.
 
+
 # base global planner
 NavfnROS:
    allow_unknown: true # Specifies whether or not to allow navfn to create plans that traverse unknown space.
 
+recovery_behavior_enabled: false
 
+plugins:
+  - {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
+  - {name: inflater_layer, type: "costmap_2d::InflationLayer"}
 
 
 #
@@ -32,3 +37,44 @@ NavfnROS:
 #]
 #conservative_clear: reset_distance: 3.00
 #aggressive_clear: reset_distance: 1.84
+
+obstacles_layer:
+
+  observation_sources: laser_scan_sensor point_cloud_sensorA point_cloud_sensorB
+
+  # assuming receiving a cloud from rtabmap_ros/obstacles_detection node
+  # we also want to use the LIDAR to place and clear items in the local costmap
+
+  laser_scan_sensor: {
+    sensor_frame: lidar_link,
+    data_type: LaserScan,
+    topic: /scan,
+    marking: false,
+    clearing: true,
+    obstacle_range: 5.5,
+    raytrace_range: 6.0
+  }
+
+
+  point_cloud_sensorA: {
+    sensor_frame: base_link,
+    data_type: PointCloud2,
+    topic: /obstacles,
+    marking: true,
+    clearing: true,
+    min_obstacle_height: 0.04,
+    max_obstacle_height: 3.0
+  }
+
+
+  point_cloud_sensorB: {
+    sensor_frame: base_link,
+    data_type: PointCloud2,
+    topic: /ground,
+    marking: false,
+    clearing: true,
+    min_obstacle_height: -1.0,
+    max_obstacle_height: 0.0
+  }
+
+

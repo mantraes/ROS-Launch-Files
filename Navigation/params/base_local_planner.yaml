@@ -7,7 +7,7 @@ DWAPlannerROS:
   acc_lim_th: 3.2 # The rotational acceleration limit of the robot in radians/sec^2
 
   max_trans_vel: 0.55 # The absolute value of the maximum translational velocity for the robot in m/s
-  min_trans_vel: 0.1 # The absolute value of the minimum translational velocity for the robot in m/s
+  min_trans_vel: 0.0 # The absolute value of the minimum translational velocity for the robot in m/s
 
   max_vel_x: 0.55 # The maximum x velocity for the robot in m/s.
   min_vel_x: -0.55 # The minimum x velocity for the robot in m/s, negative for backwards motion.
@@ -21,8 +21,8 @@ DWAPlannerROS:
 #
 # Goal Tolerance Parameters
 #
-  yaw_goal_tolerance: 0.175 # (10 degrees) The tolerance in radians for the controller in yaw/rotation when achieving its goal
-  xy_goal_tolerance: 0.2 # (20cm) The tolerance in meters for the controller in the x & y distance when achieving a goal
+  yaw_goal_tolerance: 0.20 # (11 degrees) The tolerance in radians for the controller in yaw/rotation when achieving its goal
+  xy_goal_tolerance: 0.20 # (20cm) The tolerance in meters for the controller in the x & y distance when achieving a goal
 
   latch_xy_goal_tolerance: false #If goal tolerance is latched, if the robot ever reaches the goal xy location it will simply rotate in place, even if it ends up outside the goal tolerance while it is doing so.
 
@@ -56,6 +56,8 @@ DWAPlannerROS:
   prune_plan: true # Defines whether or not to eat up the plan as the robot moves along the path. If set to true, points will fall off the end of the plan once the robot moves 1 meter past them.
   oscillation_reset_dist: 0.05 # How far the robot must travel in meters before oscillation flags are reset
   meter_scoring: true
+  #allow_none: true
+ 
 
 
 
