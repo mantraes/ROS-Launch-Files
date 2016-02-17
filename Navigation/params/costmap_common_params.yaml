@@ -49,7 +49,7 @@ obstacles_layer:
     sensor_frame: lidar_link,
     data_type: LaserScan,
     topic: /scan,
-    marking: false,
+    marking: true,
     clearing: true,
     obstacle_range: 5.5,
     raytrace_range: 6.0
