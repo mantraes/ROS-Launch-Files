@@ -1,11 +1,11 @@
 #!/bin/bash
 clear
-printf "\nStarting NTP Service...\n"
+printf "\nSynchronizing with time.nist.gov...\n"
 
-sudo service ntp start
+sudo service chrony stop
 
-ntpq -p
+sudo ntpdate time.nist.gov
 
-sudo ntpd
+sudo service chrony start
 
 printf "Done"
