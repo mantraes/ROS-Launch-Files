@@ -11,7 +11,7 @@ inf_is_valid: false  # Allows for Inf values in "LaserScan" observation messages
 # Robot Specific
 footprint: [[ 0.765, 0.765], [ -0.765, 0.765], [ -0.765, -0.765], [ 0.765, -0.765]] # corrected to include tires in the footprint
 footprint_padding: 0.10 # 10cm buffer for safety. maybe change for more precision
-inflation_radius: 1.08 
+inflation_radius: 1.08
 transform_tolerance: 1 # Specifies the delay in transform (tf) data that is tolerable in seconds.
 controller_patience: 2.0 # How long the controller will wait in seconds without receiving a valid control before space-clearing operations are performed.
 
@@ -66,5 +66,3 @@ obstacles_layer:
     min_obstacle_height: -1.0,
     max_obstacle_height: 0.0
   }
-
-
