@@ -1,5 +1,5 @@
 <launch>
-<!-- 
+<!--
 ========================================================================
 	EKF_LOCALIZATION_NODE (ODOM)
 ========================================================================
@@ -138,7 +138,7 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
       <!-- If your data is subject to outliers, use these threshold settings, expressed as Mahalanobis distances, to control
            how far away from the current vehicle state a sensor measurement is permitted to be. Each defaults to
            numeric_limits<double>::max() if unspecified. -->
-      <param name="odom0_pose_rejection_threshold" value="5"/>
+      <param name="odom0_pose_rejection_threshold" value="3"/>
       <param name="odom0_twist_rejection_threshold" value="1"/>
       <param name="odom1_pose_rejection_threshold" value="5"/>
       <param name="odom1_twist_rejection_threshold" value="0"/>

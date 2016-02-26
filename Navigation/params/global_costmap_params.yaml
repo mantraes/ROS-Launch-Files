@@ -1,8 +1,8 @@
 global_costmap:
   global_frame: map
   robot_base_frame: base_link
-  update_frequency: 0.5
-  publish_frequency: 0.5
+  update_frequency: 1
+  publish_frequency: 1
   static_map: true
   rolling_window: false
   width: 40.0
@@ -13,6 +13,3 @@ global_costmap:
 
 plugins:
   - {name: static_layer, type: "rtabmap_ros::StaticLayer"}
-
-#updated from rtabmap stereo outdoor navigation tutorial
-#http://wiki.ros.org/rtabmap_ros/Tutorials/StereoOutdoorNavigation
