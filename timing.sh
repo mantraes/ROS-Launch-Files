@@ -1,11 +1,16 @@
 #!/bin/bash
 clear
-printf "\nSynchronizing with time.nist.gov...\n"
+service chrony stop
+echo "======================================"
+echo "Synchronizing system clock with rcu..."
+echo "======================================"
+ntpdate rcu
+sleep 5
+ntpdate rcu
 
-sudo service chrony stop
-
-sudo ntpdate time.nist.gov
-
-sudo service chrony start
-
-printf "Done"
+service chrony start
+sleep 1
+echo "======================================"
+echo "Checking clock against server..."
+echo "======================================"
+ntpdate -q rcu
