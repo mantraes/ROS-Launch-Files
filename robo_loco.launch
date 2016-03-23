@@ -20,6 +20,7 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
       <param name="transform_time_offset" value="0.0"/>
 
       <param name="odom0" value="/rtabmap/odom"/>
+      <param name="imu0"  value="/imu/data" />
 
       <!-- x, y, z, 
            roll, pitch, yaw,
@@ -33,20 +34,33 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
                                       false, false, true,
                                       false, false, false]</rosparam>
 
+      <rosparam param="imu0_config">[false, false, false,
+                                     false, false, true,
+                                     true,  true,  false,
+                                     false, false, true,
+                                     true,  true,  false]</rosparam>
+
 
 
       <param name="odom0_differential" value="false"/>
+      <param name="imu0_differential" value="false"/>
+      
       <param name="odom0_relative" value="true"/>
-
-
+      <param name="imu0_relative" value="true"/>
+      
+      <param name="imu0_remove_gravitational_acceleration" value="true"/>
       <param name="print_diagnostics" value="true"/>
 
       <!-- ======== ADVANCED PARAMETERS ======== -->
 
       <param name="odom0_queue_size" value="10"/>
+      <param name="imu0_queue_size" value="10"/>
 
       <param name="odom0_pose_rejection_threshold" value="5"/>
       <param name="odom0_twist_rejection_threshold" value="1"/>
+      <param name="imu0_pose_rejection_threshold" value="0.3"/>
+      <param name="imu0_twist_rejection_threshold" value="0.1"/>
+      <param name="imu0_linear_acceleration_rejection_threshold" value="0.1"/>
 
       <param name="debug"           value="false"/>
       <param name="debug_out_file"  value="debug_ekf_localization_odom.txt"/>
@@ -92,5 +106,4 @@ this node publishes the tf odom->base_link, and an odom message in the odom worl
 
 
     </node>
-
 </launch>
