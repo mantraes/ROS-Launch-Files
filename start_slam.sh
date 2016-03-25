@@ -10,6 +10,21 @@ source ~/catkin_ws/devel/setup.bash
 clear
 
 #
+# Run IMU
+#
+
+read -n1 -r -p  "Run Razor IMU? [y/n] " key
+
+if [ "$key" = 'y' ]; then
+
+    xterm -e 'source ~/catkin_ws/devel/setup.bash; roslaunch razor_imu_9dof razor-pub.launch' & 
+    sleep 3
+
+else
+    printf "\nskipping IMU...\n"
+fi
+printf "\n"
+#
 # Run jetson at max performance?
 #
 # This must be run with sudo privelidges 
