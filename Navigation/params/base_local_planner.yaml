@@ -30,7 +30,7 @@ DWAPlannerROS:
 # Goal Tolerance Parameters
 #
   yaw_goal_tolerance: 0.20 # (11 degrees) The tolerance in radians for the controller in yaw/rotation when achieving its goal
-  xy_goal_tolerance: 0.20 # (20cm) The tolerance in meters for the controller in the x & y distance when achieving a goal
+  xy_goal_tolerance: 0.30 # (30cm) The tolerance in meters for the controller in the x & y distance when achieving a goal
   latch_xy_goal_tolerance: false #If goal tolerance is latched, if the robot ever reaches the goal xy location it will simply rotate in place, even if it ends up outside the goal tolerance while it is doing so.
 
 #
@@ -48,8 +48,8 @@ DWAPlannerROS:
 #
 # Trajectory Scoring Parameters
 #
-  path_distance_bias: 32.0 # The weighting for how much the controller should stay close to the path it was given
-  goal_distance_bias: 24.0 # The weighting for how much the controller should attempt to reach its local goal, also controls speed
+  path_distance_bias: 5.0 # The weighting for how much the controller should stay close to the path it was given
+  goal_distance_bias: 9.0 # The weighting for how much the controller should attempt to reach its local goal, also controls speed
 
   occdist_scale: 0.01 # The weighting for how much the controller should attempt to avoid obstacles
   forward_point_distance: 0.325 # The distance from the center point of the robot to place an additional scoring point, in meters
