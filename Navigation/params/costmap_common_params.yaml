@@ -3,7 +3,9 @@
 # Common Configuration (local_costmap) & (global_costmap)
 #
 robot_base_frame: base_link
-
+plugins:
+  - {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
+  - {name: inflater_layer, type: "costmap_2d::InflationLayer"}
 # Robot Specific
 footprint: [[ 0.765, 0.765], [ -0.765, 0.765], [ -0.765, -0.765], [ 0.765, -0.765]] # corrected to include tires in the footprint
 footprint_padding: 0.10 # 10cm buffer for safety. maybe change for more precision
