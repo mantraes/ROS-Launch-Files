@@ -11,6 +11,7 @@
  	      <param name="controller_patience" value="15.0" />
  	      <param name="planner_frequency" value="2.0" />
  	      <param name="clearing_rotation_allowed" value="false" />
+ 	      <param name="recovery_behavior_enabled" value="false" />
 
     	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
      	  <rosparam file="/home/ubuntu/code/ROS-Launch-Files/Navigation/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
