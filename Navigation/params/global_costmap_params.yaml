@@ -12,4 +12,5 @@ global_costmap:
   origin_y: -20
 
 plugins:
-  - {name: static_layer, type: "rtabmap_ros::StaticLayer"}
+  - {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
+  - {name: inflater_layer, type: "costmap_2d::InflationLayer"}
