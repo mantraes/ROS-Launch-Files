@@ -7,7 +7,7 @@ global_costmap:
   rolling_window: false
   width: 40.0
   height: 40.0
-  resolution: 0.025
+  resolution: 0.25
   origin_x: -20
   origin_y: -20
 

@@ -84,21 +84,6 @@ else
     printf "\nskipping robot_localization...\n"
 fi
 
-#
-# Start rtabmap ?
-#
-printf "\n"
-read -n1 -r -p "Start RTABMAP? [y/n] " key
-
-if [ "$key" = 'y' ]; then
-
-    xterm -e 'source ~/catkin_ws/devel/setup.bash; roslaunch rtabmap_ros rgbd_mapping.launch' &
-    sleep 2
-
-else
-    printf "\nskipping RTABMAP...\n"
-fi
-
 
 #
 # Start move_base ?
