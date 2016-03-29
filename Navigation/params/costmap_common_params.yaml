@@ -2,44 +2,24 @@
 #
 # Common Configuration (local_costmap) & (global_costmap)
 #
+robot_base_frame: base_link
 
 # Robot Specific
 footprint: [[ 0.765, 0.765], [ -0.765, 0.765], [ -0.765, -0.765], [ 0.765, -0.765]] # corrected to include tires in the footprint
 footprint_padding: 0.10 # 10cm buffer for safety. maybe change for more precision
 inflation_radius: 1.5
-transform_tolerance: 1 # Specifies the delay in transform (tf) data that is tolerable in seconds.
+transform_tolerance: 1.0 # Specifies the delay in transform (tf) data that is tolerable in seconds.
 controller_patience: 2.0 # How long the controller will wait in seconds without receiving a valid control before space-clearing operations are performed.
-
 
 # base global planner
 NavfnROS:
-   allow_unknown: true # Specifies whether or not to allow navfn to create plans that traverse unknown space.
+  allow_unknown: true # Specifies whether or not to allow navfn to create plans that traverse unknown space.
 
-recovery_behavior_enabled: false
-
-plugins:
-  - {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
-  - {name: inflater_layer, type: "costmap_2d::InflationLayer"}
-
-
-#
-# Remove recovery behaviors for debugging purposes
-#
-
-#recovery_behaviors: [
-#    {name: conservative_clear, type: clear_costmap_recovery/ClearCostmapRecovery},
-#    {name: aggressive_clear, type: clear_costmap_recovery/ClearCostmapRecovery}
-#]
-#conservative_clear: reset_distance: 3.00
-#aggressive_clear: reset_distance: 1.84
+inflater_layer:
+  inflation_radius: 1.5
 
 obstacles_layer:
-
-  observation_sources: laser
-
-  # assuming receiving a cloud from rtabmap_ros/obstacles_detection node
-  # we also want to use the LIDAR to place and clear items in the local costmap
-
+  observation_sources: laser zed_obstacles
 
   laser: {
     observation_persistence: 0.0,
@@ -52,5 +32,15 @@ obstacles_layer:
     inf_is_valid: true,
     raytrace_range: 5,
     obstacle_range: 5
-
+  }
+  
+  zed_obstacles: {
+    observation_persistence: 0.0,
+    expected_update_rate: 0.5,
+    data_type: PointCloud2,
+    topic: /obstacles,
+    marking: true,
+    clearing: true,
+    max_obstacle_height: 1.5,
+    min_obstacle_height: 0
   }
