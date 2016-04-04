@@ -10,7 +10,7 @@
 
 <node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_link" args="0.360 0.075 0.490 0 0 0 base_link imu_link 20" />
 
-<node pkg="tf" type="static_transform_publisher" name="base_link_to_lidar_link" args="0.480 0 0.600 0 0 0 base_link lidar_link 20" />
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_lidar_link" args="0.480 0 0.600 3.1415923 0 0 base_link lidar_link 20" />
 
 <node pkg="tf" type="static_transform_publisher" name="base_link_to_gps_link" args="0.64 -0.145 0.658 0 0 0 base_link gps_link 20" />
 
