@@ -4,15 +4,15 @@
 	  base_link is located at the geometric center of the j5 (from the top view) , and at the center of the hubs (side view) 
 	  the Z distance from the wheel hub center to the deck (where payload mounting points exist) is 0.315m -->
 
-<node pkg="tf" type="static_transform_publisher" name="base_link_to_camera_link_rgb"   args="0.64 0 0.531 -1.5707963267948966 0 -1.5707963267948966 base_link zed_rgb_optical_frame 100" />
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_camera_link_rgb"   args="0.595 0 0.410 -1.5707963267948966 0 -1.5707963267948966 base_link zed_rgb_optical_frame 20" />
 
-<node pkg="tf" type="static_transform_publisher" name="camera_link_rgb_to_camera_link_depth" args="0 0 0 0 0 0 zed_rgb_optical_frame zed_depth_optical_frame 100" />
+<node pkg="tf" type="static_transform_publisher" name="camera_link_rgb_to_camera_link_depth" args="0 0 0 0 0 0 zed_rgb_optical_frame zed_depth_optical_frame 20" />
 
-<node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_link" args="0.64 0 0.665 0 0 0 base_link imu_link 100" />
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_link" args="0.360 0.075 0.490 0 0 0 base_link imu_link 20" />
 
-<node pkg="tf" type="static_transform_publisher" name="base_link_to_lidar_link" args="0.635 0 0.675 0 0 0 base_link lidar_link 100" />
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_lidar_link" args="0.480 0 0.600 0 0 0 base_link lidar_link 20" />
 
-<node pkg="tf" type="static_transform_publisher" name="base_link_to_gps_link" args="0.64 -0.145 0.658 0 0 0 base_link gps_link 100" />
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_gps_link" args="0.64 -0.145 0.658 0 0 0 base_link gps_link 20" />
 
 
 </launch>
